@@ -85,6 +85,9 @@ def get_loader(data_name, data_path, transform):
     elif data_name == 'texture':
         oodset = datasets.ImageFolder(os.path.join(data_path, 'dtd', 'images'),
                                       transform=transform)
+    elif data_name == 'places':
+        oodset = datasets.ImageFolder(os.path.join(data_path, 'places_sample'),
+                                      transform=transform)
     else:
         oodset = datasets.ImageFolder(os.path.join(data_path, data_name),
                                       transform=transform)
@@ -123,8 +126,6 @@ def get_scores(model, loader, means, covs_inv, gmm_weights, out_dim, num_kernel)
     results = []
 
     for idx, (inp, _) in enumerate(loader):
-        if (idx + 1) > 79:
-            break 
         # move to gpu
         inp = inp.cuda(non_blocking=True)
         # forward
@@ -133,7 +134,7 @@ def get_scores(model, loader, means, covs_inv, gmm_weights, out_dim, num_kernel)
         maha = get_maha_score(means, 
                               covs_inv, 
                               gmm_weights, 
-                              q.reshape(-1, 32, out_dim // num_kernel))
+                              q.reshape(-1, num_kernel, out_dim // num_kernel))
         output = maha.cpu().tolist()
         results.extend(output)
 
@@ -185,7 +186,6 @@ def get_maha_score(mu, cov_inv, gmm_weights, x):
 
 def get_results(res_in, res_out):
     tar_in, tar_out = np.zeros(len(res_in)), np.ones(len(res_out))
-    # tar_in, tar_out = np.ones(len(res_in)), np.zeros(len(res_out))
     res, tar = [], []
     res.extend(res_in)
     res.extend(res_out)
