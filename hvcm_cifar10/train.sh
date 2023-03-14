@@ -4,7 +4,7 @@ OMP_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=0 python3 ./train.py \
 --lr 0.1 \
 --epoch 200 \
 --model ResNet18Gram \
---name cifar_hvcm \
+--name cifar_hvcm_test \
 --decay 1e-4 \
 --dataset cifar10 \
 --dataroot data/ \

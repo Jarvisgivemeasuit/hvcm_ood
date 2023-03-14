@@ -2,8 +2,8 @@ import scipy.io as sio
 import os
 import numpy as np
 
-root = './hvcm_cifar10/data/ood_data/'
-filename = 'test_32x32.mat'
+root = './hvcm_cifar10/data/'
+filename = 'svhn_32x32.mat'
 
 loaded_mat = sio.loadmat(os.path.join(root, filename))
 

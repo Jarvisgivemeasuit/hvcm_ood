@@ -27,7 +27,9 @@ For Textures, we use the entire dataset, which can be downloaded from their [ori
 
 ImageNet-O and OpenImage-O can be Download from [VIM](https://github.com/haoqiwang/vim).
 
-Please put all downloaded OOD datasets into ```./hvcm_imagenet/data/ood_data/```.
+Please put all downloaded OOD datasets into ```./hvcm_imagenet/data/ood_data/```. 
+
+
 
 ## Dataset Preparation for CIFAR Experiment
 ### In-distribution dataset
@@ -46,4 +48,27 @@ download it and place it in the folder of ```./hvcm_cigar10/data/LSUN/```.
 - [iSUN](https://www.dropbox.com/s/ssz7qxfqae0cca5/iSUN.tar.gz): 
 download it and place it in the folder of ```./hvcm_cigar10/data/iSUN/```.
 
+## Demo
+1. Demo code for ImageNet Experiment
+```
+cd hvcm_imagenet
+sh main.sh
+```
+Run ```sh ind_acc.sh``` for in-distribution accuracy.
+
+Run ```sh get_gau.sh``` for GMM components.
+
+Run```sh ood_maha.sh``` for OOD detection.
+
+2. Demo code for CIFAR Experiment
+```
+cd hvcm_cifar10
+sh train.sh
+```
+
+Run ```sh ind_acc.sh``` for in-distribution accuracy.
+
+Run ```sh get_gau.sh``` for GMM components.
+
+Run```sh ood_maha.sh``` for OOD detection.
 

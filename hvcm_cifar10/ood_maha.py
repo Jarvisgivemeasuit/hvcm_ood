@@ -15,10 +15,10 @@ parser = argparse.ArgumentParser(description='OOD Detection on CIFAR10')
 parser.add_argument('--model', default="CIFAR_ResNet18", type=str, help='model type')
 parser.add_argument('--model_id', default="", type=str, help='checkpoint id in model storage')
 parser.add_argument('--name', default='0', type=str, help='name of run')
-parser.add_argument('--batch-size', default=128, type=int, help='batch size')
+parser.add_argument('--batch_size', default=128, type=int, help='batch size')
 parser.add_argument('--dataset', default='cifar100', type=str, help='the name for dataset')
 parser.add_argument('--ind_path', default='data/', type=str, help='ind data directory')
-parser.add_argument('--ood_path', default='data/ood/', type=str, help='ood data directory')
+parser.add_argument('--ood_path', default='data/', type=str, help='ood data directory')
 parser.add_argument('--saveroot', default='results/', type=str, help='save directory')
 parser.add_argument('--num_classes', default=100, type=int, help='Number of labels for linear classifier')
 
@@ -80,7 +80,7 @@ def get_loader(data_name, data_path, transform):
     print(f'==> Preparing {data_name}..')
 
     if data_name == 'svhn':
-        oodset = SVHN(os.path.join(data_path, 'selected_svhn_32x32.mat'), 
+        oodset = SVHN(os.path.join(data_path, 'selected_test_32x32.mat'), 
                       transform=transform)
     elif data_name == 'texture':
         oodset = datasets.ImageFolder(os.path.join(data_path, 'dtd', 'images'),
