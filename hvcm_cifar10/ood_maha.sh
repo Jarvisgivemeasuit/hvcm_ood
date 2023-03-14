@@ -1,0 +1,11 @@
+OMP_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=2 python3 ./ood_maha.py \
+--model ResNet18Gram \
+--dataset cifar10 \
+--num_classes 10 \
+--batch_size 128
+--ind_path /path/to/cifar10/ \
+--ood_path /path/to/ood_datasets \
+--saveroot results/ \
+--attri_dim 1024 \
+--name cifar_hvcm \
+--num_kernel 32
