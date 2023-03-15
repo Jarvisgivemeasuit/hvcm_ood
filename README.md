@@ -81,3 +81,9 @@ Run ```sh ood_maha.sh``` for OOD detection.
 [Emerging Properties in Self-Supervised Vision Transformers](https://github.com/facebookresearch/dino)
 
 [Regularizing Class-wise Predictions via Self-knowledge Distillation](https://github.com/alinlab/cs-kd)
+
+[MOS: Towards Scaling Out-of-distribution Detection for Large Semantic Space](https://github.com/deeplearning-wisc/large_scale_ood)
+
+[Energy-based Out-of-distribution Detection ](https://github.com/wetliu/energy_ood)
+
+[Out-of-distribution Detection with Deep Nearest Neighbors](https://github.com/deeplearning-wisc/knn-ood)
