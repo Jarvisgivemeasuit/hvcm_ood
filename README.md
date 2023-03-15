@@ -55,6 +55,8 @@ Please download [Pre-trained models](https://drive.google.com/file/d/17PDYZD8vmy
 
 ## Demo
 1. Demo code for ImageNet Experiment
+
+Run HVCM with ResNet-50 network on a single node with 4 GPUs for 300 epochs with the following command. 
 ```
 cd hvcm_imagenet
 sh main.sh
