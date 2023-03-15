@@ -1,4 +1,5 @@
 # Hierarchical Visual Categories Modeling: A Joint Representation Learning and Density Estimation Framework for Out-of-Distribution Detection
+
 ## Requirements
 - python 3.8.13
 - cuda 11.1
