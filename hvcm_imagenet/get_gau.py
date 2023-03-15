@@ -11,7 +11,7 @@ import utils
 
 parser = argparse.ArgumentParser('GMM')
 parser.add_argument('--arch', default='resnet50', type=str, help='Architecture')
-parser.add_argument('--pretrained_weights', default='', type=str, help="Path to pretrained weights to evaluate.")
+parser.add_argument('--output_dir', default='', type=str, help="Path to pretrained weights to evaluate.")
 parser.add_argument("--checkpoint_key", default="teacher", type=str, help='Key to use in the checkpoint (example: "teacher")')
 parser.add_argument('--batch_size_per_gpu', default=128, type=int, help='Per-GPU batch-size')
 parser.add_argument('--num_workers', default=10, type=int, help='Number of data loading workers per GPU.')
@@ -90,7 +90,8 @@ model = utils.MultiCropWrapper(
         utils.DINOHead(embed_dim, args.out_dim, False, num_kernel=args.num_kernel),
     )
 
-centers, gmm_weights = load_pretrained_weights(model, args.pretrained_weights, 'teacher')
+pretrained_weights = os.path.join(args.output_dir, 'checkpoint.pth')
+centers, gmm_weights = load_pretrained_weights(model, pretrained_weights, 'teacher')
 model.cuda()
 model.eval()
 
@@ -158,5 +159,5 @@ for i in range(args.num_labels):
         
     print(f'Mean and cov_inverse of dataset {i} calculation complete.')
 
-torch.save(ind_means, os.path.join(args.pretrained_weights, 'means.pt'))
-torch.save(ind_covs_inv, os.path.join(args.pretrained_weights, 'covs_inv.pt'))
+torch.save(ind_means, os.path.join(args.output_dir, 'means.pt'))
+torch.save(ind_covs_inv, os.path.join(args.output_dir, 'covs_inv.pt'))

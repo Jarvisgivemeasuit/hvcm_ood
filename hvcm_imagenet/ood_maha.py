@@ -1,12 +1,10 @@
 import argparse
 import os
-from time import process_time_ns, time
 
 import numpy as np
 import torch
-import torch.nn.functional as F
 from progress.bar import Bar
-from sklearn.metrics import average_precision_score, roc_auc_score, roc_curve
+from sklearn.metrics import roc_auc_score, roc_curve
 from torchvision import datasets
 from torchvision import models as torchvision_models
 from torchvision import transforms
@@ -36,6 +34,7 @@ def calculate_ind_acc(args):
         transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
     ])
     print('==> Preparing InD dataset..')
+
     in_data = Imagenet('val', args.ind_path, args.num_labels, transform)
     in_loader = torch.utils.data.DataLoader(
         in_data,
@@ -45,11 +44,11 @@ def calculate_ind_acc(args):
     )
 
     results_in = get_scores(model, in_loader, means, covs_inv, gmm_weights, args.out_dim, args.num_kernel)
-    aurocs, fpr95s, auprs = [], [], []
+    aurocs, fpr95s = [], []
 
     # Texture dataset
     print("==> Preparing Texture..")
-    ood_data = datasets.ImageFolder(os.path.join(args.ood_path, 'dtd/images'), transform=transform)
+    ood_data = datasets.ImageFolder(os.path.join(args.ood_path, 'dtd', 'images'), transform=transform)
     ood_loader = torch.utils.data.DataLoader(ood_data, 
                         batch_size=args.batch_size_per_gpu, 
                         shuffle=True,
@@ -58,11 +57,10 @@ def calculate_ind_acc(args):
                         )
 
     results_out = get_scores(model, ood_loader, means, covs_inv, gmm_weights, args.out_dim, args.num_kernel)
-    auroc, fpr95, aupr = get_results(results_in, results_out, 'dtd')
+    auroc, fpr95 = get_results(results_in, results_out, 'dtd')
     aurocs.append(auroc)
     fpr95s.append(fpr95)
-    auprs.append(aupr)
-    print(f"AUROC:{auroc * 100:.2f}, FPR95:{fpr95 * 100:.2f}, AUPR:{aupr * 100:.2f}")
+    print(f"AUROC:{auroc * 100:.2f}, FPR95:{fpr95 * 100:.2f}")
     print()
 
     # iNaturalist dataset
@@ -75,11 +73,10 @@ def calculate_ind_acc(args):
                         pin_memory=True
                         )
     results_out = get_scores(model, ood_loader, means, covs_inv, gmm_weights, args.out_dim, args.num_kernel)
-    auroc, fpr95, aupr = get_results(results_in, results_out, 'inat')
+    auroc, fpr95 = get_results(results_in, results_out, 'inat')
     aurocs.append(auroc)
     fpr95s.append(fpr95)
-    auprs.append(aupr)
-    print(f"AUROC:{auroc * 100:.2f}, FPR95:{fpr95 * 100:.2f}, AUPR:{aupr * 100:.2f}")
+    print(f"AUROC:{auroc * 100:.2f}, FPR95:{fpr95 * 100:.2f}")
     print()
 
     # Places dataset
@@ -93,11 +90,10 @@ def calculate_ind_acc(args):
                         )
 
     results_out = get_scores(model, ood_loader, means, covs_inv, gmm_weights, args.out_dim, args.num_kernel)
-    auroc, fpr95, aupr = get_results(results_in, results_out, 'place')
+    auroc, fpr95 = get_results(results_in, results_out, 'place')
     aurocs.append(auroc)
     fpr95s.append(fpr95)
-    auprs.append(aupr)
-    print(f"AUROC:{auroc * 100:.2f}, FPR95:{fpr95 * 100:.2f}, AUPR:{aupr * 100:.2f}")
+    print(f"AUROC:{auroc * 100:.2f}, FPR95:{fpr95 * 100:.2f}")
     print()
 
     # SUN dataset
@@ -111,14 +107,13 @@ def calculate_ind_acc(args):
                         )
 
     results_out = get_scores(model, ood_loader, means, covs_inv, gmm_weights, args.out_dim, args.num_kernel)
-    auroc, fpr95, aupr = get_results(results_in, results_out, 'sun')
+    auroc, fpr95 = get_results(results_in, results_out, 'sun')
     aurocs.append(auroc)
     fpr95s.append(fpr95)
-    auprs.append(aupr)
-    print(f"AUROC:{auroc * 100:.2f}, FPR95:{fpr95 * 100:.2f}, AUPR:{aupr * 100:.2f}")
+    print(f"AUROC:{auroc * 100:.2f}, FPR95:{fpr95 * 100:.2f}")
     print()
     print('AVERAGE')
-    print(f"AUROC:{np.mean(aurocs) * 100:.2f}, FPR95:{np.mean(fpr95s) * 100:.2f}, AUPR:{np.mean(auprs) * 100:.2f}")
+    print(f"AUROC:{np.mean(aurocs) * 100:.2f}, FPR95:{np.mean(fpr95s) * 100:.2f}")
     print()
 
     # ImageNet-O dataset
@@ -132,8 +127,8 @@ def calculate_ind_acc(args):
                         )
 
     results_out = get_scores(model, ood_loader, means, covs_inv, gmm_weights, args.out_dim, args.num_kernel)
-    auroc, fpr95, aupr = get_results(results_in, results_out, 'im-o')
-    print(f"AUROC:{auroc * 100:.2f}, FPR95:{fpr95 * 100:.2f}, AUPR:{aupr * 100:.2f}")
+    auroc, fpr95 = get_results(results_in, results_out, 'im-o')
+    print(f"AUROC:{auroc * 100:.2f}, FPR95:{fpr95 * 100:.2f}")
     print()
 
     # OpenImage-O dataset
@@ -146,8 +141,8 @@ def calculate_ind_acc(args):
                         pin_memory=True
                         )
     results_out = get_scores(model, ood_loader, means, covs_inv, gmm_weights, args.out_dim, args.num_kernel)
-    auroc, fpr95, aupr = get_results(results_in, results_out, 'openimage')
-    print(f"AUROC:{auroc * 100:.2f}, FPR95:{fpr95 * 100:.2f}, AUPR:{aupr * 100:.2f}")
+    auroc, fpr95 = get_results(results_in, results_out, 'openimage')
+    print(f"AUROC:{auroc * 100:.2f}, FPR95:{fpr95 * 100:.2f}")
     print()
 
 
@@ -161,8 +156,7 @@ def get_results(res_in, res_out, data_name):
     
     auroc = calc_auroc(res, tar)
     fpr95 = calc_fpr(res, tar, data_name)
-    aupr = average_precision_score(tar, res)
-    return auroc, fpr95, aupr
+    return auroc, fpr95
     
 
 def get_scores(model, loader, means, covs_inv, gmm_weights, out_dim, num_kernel):
@@ -226,7 +220,7 @@ def get_maha_score(mu, cov_inv, gmm_weights, x):
 
     
 def get_gaussian(pretrained_weights):
-    gau_path = ('/' + os.path.join(*pretrained_weights.split('/')[:-1]))
+    gau_path = (os.path.join(*pretrained_weights.split('/')[:-1]))
     means = torch.load(os.path.join(gau_path, 'means.pt')).cuda()
     covs_inv = torch.load(os.path.join(gau_path, 'covs_inv.pt')).cuda()
     return means, covs_inv

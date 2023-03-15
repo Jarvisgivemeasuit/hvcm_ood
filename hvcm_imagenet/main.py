@@ -50,7 +50,7 @@ def get_args_parser():
     parser.add_argument('--arch', default='resnet50', type=str,
         choices=torchvision_archs, help="""Name of architecture to train.""")
     parser.add_argument('--out_dim', default=1024, type=int, help="""Dimensionality of
-        the DINO head output. For complex and large datasets large values (like 65k) work well.""")
+        the head output. For complex and large datasets large values (like 65k) work well.""")
     parser.add_argument('--norm_last_layer', default=True, type=utils.bool_flag,
         help="""Whether or not to weight normalize the last layer of the DINO head.
         Not normalizing leads to better performance but can make the training unstable.
@@ -262,7 +262,7 @@ def train(args):
     start_epoch = to_restore["epoch"]
 
     start_time = time.time()
-    print("Starting DINO training !")
+    print("Starting HVCM training !")
     for epoch in range(start_epoch, args.epochs):
         data_loader.sampler.set_epoch(epoch)
 
