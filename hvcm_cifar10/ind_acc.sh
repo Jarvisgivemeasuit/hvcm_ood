@@ -1,4 +1,4 @@
-OMP_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=2 python3 ../ind_acc.py \
+OMP_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=0 python3 ../ind_acc.py \
 --model ResNet18Gram \
 --dataset cifar10 \
 --dataroot data \

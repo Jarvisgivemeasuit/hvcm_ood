@@ -3,8 +3,7 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
-from sklearn.covariance import EmpiricalCovariance
-from sklearn.metrics import average_precision_score, roc_auc_score, roc_curve
+from sklearn.metrics import roc_auc_score, roc_curve
 from progress.bar import Bar
 
 import models
@@ -71,8 +70,8 @@ def ood_detect(args):
                                 means, cinvs, weights, 
                                 args.attri_dim, args.num_kernel)
 
-        auroc, fpr95, aupr = get_results(results_in, results_out)
-        print(f"AUROC:{auroc * 100:.2f}, FPR95:{fpr95 * 100:.2f}, AUPR:{aupr * 100:.2f}")
+        auroc, fpr95 = get_results(results_in, results_out)
+        print(f"AUROC:{auroc * 100:.2f}, FPR95:{fpr95 * 100:.2f}")
         print()
 
     
@@ -194,8 +193,7 @@ def get_results(res_in, res_out):
     
     auroc = calc_auroc(res, tar)
     fpr95 = calc_fpr(res, tar)
-    aupr = average_precision_score(tar, res)
-    return auroc, fpr95, aupr
+    return auroc, fpr95
 
 
 def calc_fpr(scores, trues):
