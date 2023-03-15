@@ -77,3 +77,7 @@ Run ```sh get_gau.sh``` for getting GMMs components.
 
 Run ```sh ood_maha.sh``` for OOD detection.
 
+## Acknowledgement
+[Emerging Properties in Self-Supervised Vision Transformers](https://github.com/facebookresearch/dino)
+
+[Regularizing Class-wise Predictions via Self-knowledge Distillation](https://github.com/alinlab/cs-kd)
