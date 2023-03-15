@@ -50,8 +50,8 @@ net.load_state_dict(checkpoint['net'])
 rng_state = checkpoint['rng_state']
 torch.set_rng_state(rng_state)
 
-ind_means = torch.tensor([])
-ind_covs_inv = torch.tensor([])
+ind_means = torch.tensor([], dtype=torch.double)
+ind_covs_inv = torch.tensor([], dtype=torch.double)
 
 # Get all samples attributes
 attris = [[] for i in range(num_classes)]
@@ -73,8 +73,8 @@ for i in range(num_classes):
     attri = attri.reshape(attri.shape[0], args.num_kernel, -1)
     dim = attri.shape[-1]
 
-    cls_mean = torch.tensor([]).cuda()
-    cls_cov = torch.tensor([]).cuda()
+    cls_mean = torch.tensor([], dtype=torch.double).cuda()
+    cls_cov = torch.tensor([], dtype=torch.double).cuda()
 
     for gau in range(args.num_kernel):
         samples = attri[:, gau:gau + 1].cuda()
