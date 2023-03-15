@@ -31,7 +31,7 @@ Please put all downloaded OOD datasets into ```./hvcm_imagenet/data/ood_data/```
 
 
 ### Pre-trained Model
-Please download [Pre-trained models](https://drive.google.com/file/d/1qqnot3E7M2Ojiw87JtojphDSXJHeL63a/view?usp=share_link) and place in the ./results folder.
+Please download [Pre-trained models](https://drive.google.com/file/d/1qqnot3E7M2Ojiw87JtojphDSXJHeL63a/view?usp=share_link) and place in the ```./hvcm_imagenet/results``` folder.
 
 ## Dataset Preparation for CIFAR Experiment
 ### In-distribution dataset
@@ -51,7 +51,7 @@ download it and place it in the folder of ```./hvcm_cigar10/data/LSUN/```.
 download it and place it in the folder of ```./hvcm_cigar10/data/iSUN/```.
 
 ### Pre-trained Model
-Please download [Pre-trained models](https://drive.google.com/file/d/17PDYZD8vmyGQcPPv8pfrvb27PTOGOYM_/view?usp=share_link) and place in the ```./results/cifar10/ResNet18Gram/cifar_hvcm``` folder.
+Please download [Pre-trained models](https://drive.google.com/file/d/17PDYZD8vmyGQcPPv8pfrvb27PTOGOYM_/view?usp=share_link) and place in the ```./hvcm_cifar10/results/cifar10/ResNet18Gram/cifar_hvcm``` folder.
 
 ## Demo
 1. Demo code for ImageNet Experiment
