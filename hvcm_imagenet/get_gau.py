@@ -120,7 +120,8 @@ for i in range(args.num_labels):
         pin_memory=True,
     )
     for idx, (img, _) in enumerate(dataloader):
-        img = img.cuda()
+        if use_cuda:
+            img = img.cuda()
 
         with torch.no_grad():
             _, q = model(img)

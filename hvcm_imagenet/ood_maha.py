@@ -11,6 +11,7 @@ from torchvision import transforms
 
 import utils
 from dataset.imagenet import Imagenet
+use_cuda = torch.cuda.is_available()
 
 
 def ood_maha(args):
@@ -25,7 +26,6 @@ def ood_maha(args):
     _, gmm_weights = load_pretrained_weights(model, args.pretrained_weights, 'teacher')
     means, covs_inv = get_gaussian(args.pretrained_weights)
 
-    use_cuda = torch.cuda.is_available()
     if use_cuda:
         model.cuda()
         means = means.cuda()
@@ -172,7 +172,8 @@ def get_scores(model, loader, means, covs_inv, gmm_weights, out_dim, num_kernel)
 
     for idx, (inp, _) in enumerate(loader):
         # move to gpu
-        inp = inp.cuda(non_blocking=True)
+        if use_cuda:
+            inp = inp.cuda(non_blocking=True)
         # forward
         with torch.no_grad():
             _, q = model(inp)
