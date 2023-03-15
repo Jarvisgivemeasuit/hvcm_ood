@@ -12,7 +12,7 @@ OMP_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --nproc_per_node=4 --mas
 --global_crops_scale 0.14 1 \
 --local_crops_scale 0.05 0.14 \
 --data_path data \
---output_dir results \
+--output_dir results/resnet50 \
 --num_kernel 32 \
 --alpha 1.6e-4 \
 --beta 1.6e-5 \
