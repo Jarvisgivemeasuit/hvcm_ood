@@ -29,7 +29,7 @@ args = parser.parse_args()
 use_cuda = torch.cuda.is_available()
 
 
-def ood_detect(args):
+def ood_maha(args):
     print("==> Preparing Model..")
     logdir = os.path.join(args.saveroot, args.dataset, args.model, args.name)
     checkpoint = torch.load(os.path.join(logdir, f'ckpt{args.model_id}.t7'))
@@ -217,4 +217,4 @@ def calc_auroc(scores, trues):
     return result
 
 if __name__ == '__main__':
-    ood_detect(args)
+    ood_maha(args)

@@ -91,8 +91,12 @@ model = utils.MultiCropWrapper(
     )
 
 pretrained_weights = os.path.join(args.output_dir, 'checkpoint.pth')
-centers, gmm_weights = load_pretrained_weights(model, pretrained_weights, 'teacher')
-model.cuda()
+_, _ = load_pretrained_weights(model, pretrained_weights, 'teacher')
+
+use_cuda = torch.cuda.is_available()
+if use_cuda:
+    model.cuda()
+
 model.eval()
 
 '''

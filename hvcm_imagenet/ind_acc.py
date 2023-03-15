@@ -50,6 +50,7 @@ def calculate_ind_acc(args):
     )
     model.cuda()
     model.eval()
+
     # load weights to evaluate
     print("==> Preparing group centers..")
     centers, _ = load_pretrained_weights(model, args.pretrained_weights, args.checkpoint_key, args.arch)

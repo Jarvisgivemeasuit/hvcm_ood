@@ -13,7 +13,7 @@ import utils
 from dataset.imagenet import Imagenet
 
 
-def calculate_ind_acc(args):
+def ood_maha(args):
     print('==> Preparing model..')
     model = torchvision_models.__dict__[args.arch]()
     embed_dim = model.fc.weight.shape[1]
@@ -24,7 +24,13 @@ def calculate_ind_acc(args):
     print('==> Preparing GMMs..')
     _, gmm_weights = load_pretrained_weights(model, args.pretrained_weights, 'teacher')
     means, covs_inv = get_gaussian(args.pretrained_weights)
-    model.cuda()
+
+    use_cuda = torch.cuda.is_available()
+    if use_cuda:
+        model.cuda()
+        means = means.cuda()
+        covs_inv = covs_inv.cuda()
+
     model.eval()
 
     transform = transforms.Compose([
@@ -221,8 +227,8 @@ def get_maha_score(mu, cov_inv, gmm_weights, x):
     
 def get_gaussian(pretrained_weights):
     gau_path = (os.path.join(*pretrained_weights.split('/')[:-1]))
-    means = torch.load(os.path.join(gau_path, 'means.pt')).cuda()
-    covs_inv = torch.load(os.path.join(gau_path, 'covs_inv.pt')).cuda()
+    means = torch.load(os.path.join(gau_path, 'means.pt'), map_location='cpu')
+    covs_inv = torch.load(os.path.join(gau_path, 'covs_inv.pt'), map_location='cpu')
     return means, covs_inv
 
 
@@ -275,4 +281,4 @@ if __name__ == '__main__':
         the DINO head output. For complex and large datasets large values (like 65k) work well.""")
     parser.add_argument('--num_kernel', default=32, type=int, help="Number of Gaussian components of GMM")
     args = parser.parse_args()
-    calculate_ind_acc(args)
+    ood_maha(args)
