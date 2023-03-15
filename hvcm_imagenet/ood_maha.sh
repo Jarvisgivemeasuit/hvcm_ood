@@ -6,4 +6,4 @@ OMP_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=0 python ./ood_maha.py \
 --batch_size_per_gpu 64 \
 --ind_path data \
 --ind_path data/ood \
---pretrained_weights /path/to/checkpoint
+--pretrained_weights results/checkpoint.pth

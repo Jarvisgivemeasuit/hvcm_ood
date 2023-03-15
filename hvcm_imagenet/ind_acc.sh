@@ -5,4 +5,4 @@ OMP_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node=1 --master_po
 --batch_size_per_gpu 128 \
 --num_kernel 32 \
 --data_path data \
---pretrained_weights /path/to/checkpoint
+--pretrained_weights results/checkpoint.pth

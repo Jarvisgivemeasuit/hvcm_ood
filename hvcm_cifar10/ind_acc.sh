@@ -1,8 +1,8 @@
 OMP_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=2 python3 ../ind_acc.py \
 --model ResNet18Gram \
 --dataset cifar10 \
---dataroot /path/to/cifar10 \
---saveroot /path/to/model_storage \
+--dataroot data \
+--saveroot result \
 --batch_size 128 \
 --attri_dim 1024 \
 --name cifar_hvcm \

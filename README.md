@@ -30,6 +30,8 @@ ImageNet-O and OpenImage-O can be Download from [VIM](https://github.com/haoqiwa
 Please put all downloaded OOD datasets into ```./hvcm_imagenet/data/ood_data/```. 
 
 
+### Pre-trained Model
+Please download [Pre-trained models](https://drive.google.com/file/d/1qqnot3E7M2Ojiw87JtojphDSXJHeL63a/view?usp=share_link) and place in the ./results folder.
 
 ## Dataset Preparation for CIFAR Experiment
 ### In-distribution dataset
@@ -48,15 +50,18 @@ download it and place it in the folder of ```./hvcm_cigar10/data/LSUN/```.
 - [iSUN](https://www.dropbox.com/s/ssz7qxfqae0cca5/iSUN.tar.gz): 
 download it and place it in the folder of ```./hvcm_cigar10/data/iSUN/```.
 
+### Pre-trained Model
+Please download [Pre-trained models](https://drive.google.com/file/d/17PDYZD8vmyGQcPPv8pfrvb27PTOGOYM_/view?usp=share_link) and place in the ```./results/cifar10/ResNet18Gram/cifar_hvcm``` folder.
+
 ## Demo
 1. Demo code for ImageNet Experiment
 ```
 cd hvcm_imagenet
 sh main.sh
 ```
-Run ```sh ind_acc.sh``` for in-distribution accuracy.
+Run ```sh ind_acc.sh``` for calculating in-distribution accuracy.
 
-Run ```sh get_gau.sh``` for GMM components.
+Run ```sh get_gau.sh``` for getting GMMs components.
 
 Run```sh ood_maha.sh``` for OOD detection.
 
@@ -66,9 +71,9 @@ cd hvcm_cifar10
 sh train.sh
 ```
 
-Run ```sh ind_acc.sh``` for in-distribution accuracy.
+Run ```sh ind_acc.sh``` for calculating in-distribution accuracy.
 
-Run ```sh get_gau.sh``` for GMM components.
+Run ```sh get_gau.sh``` for getting GMMs components.
 
-Run```sh ood_maha.sh``` for OOD detection.
+Run ```sh ood_maha.sh``` for OOD detection.
 
