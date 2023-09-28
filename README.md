@@ -90,3 +90,13 @@ Run ```sh ood_maha.sh``` for OOD detection.
 [Energy-based Out-of-distribution Detection ](https://github.com/wetliu/energy_ood)
 
 [Out-of-distribution Detection with Deep Nearest Neighbors](https://github.com/deeplearning-wisc/knn-ood)
+
+## Citation
+@InProceedings{Li2023hvcm,
+    author    = {Li, Jinglun and Zhou, Xinyu and Guo, Pinxue and Sun, Yixuan and Huang, Yiwen and Ge, Weifeng and Zhang, Wenqiang},
+    title     = {Hierarchical Visual Categories Modeling: A Joint Representation Learning and Density Estimation Framework for Out-of-Distribution Detection},
+    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+    month     = {October},
+    year      = {2023},
+    pages     = {23425-23435}
+}
