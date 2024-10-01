@@ -1,4 +1,4 @@
-# Hierarchical Visual Categories Modeling: A Joint Representation Learning and Density Estimation Framework for Out-of-Distribution Detection
+# ![Static Badge](https://img.shields.io/badge/ICCV-2023-blue)Hierarchical Visual Categories Modeling: A Joint Representation Learning and Density Estimation Framework for Out-of-Distribution Detection
 
 ## Requirements
 - python 3.8.13
